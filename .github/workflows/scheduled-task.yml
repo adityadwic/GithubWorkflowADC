@@ -14,7 +14,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Dummy Action - Keeping GitHub Active
+      - name: Keeping GitHub Active
         run: |
           echo "This is a dummy task to keep the repository active."
           date # Prints the current date and time
