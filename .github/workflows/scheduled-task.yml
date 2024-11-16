@@ -1,0 +1,31 @@
+name: Active and Scheduled Workflow
+
+on:
+  schedule:
+    # Schedule: 08:00 WIB, 12:00 WIB, 17:00 WIB
+    - cron: '0 1 * * *' # 08:00 WIB
+    - cron: '0 5 * * *' # 12:00 WIB
+    - cron: '0 10 * * *' # 17:00 WIB
+
+jobs:
+  dummy-task:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Dummy Action - Keeping GitHub Active
+        run: |
+          echo "This is a dummy task to keep the repository active."
+          date # Prints the current date and time
+
+  scheduled-task:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run Scheduled Task
+        run: |
+          echo "This is your scheduled task running at specific times."
+          echo "Add your real task logic here!"
