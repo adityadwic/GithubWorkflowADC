@@ -6,6 +6,7 @@ on:
     - cron: '0 1 * * *' # 08:00 WIB
     - cron: '0 5 * * *' # 12:00 WIB
     - cron: '0 10 * * *' # 17:00 WIB
+    - cron: '28 13 * * *' # 20:28 WIB / 13:28 UTC
   push:
     branches:
       - main  # Atur agar workflow berjalan saat ada push ke branch 'main'
@@ -36,8 +37,8 @@ jobs:
 
       - name: Commit and Push Changes
         run: |
-          git config --global user.email "youremail@example.com"  # Ganti dengan email GitHub Anda
-          git config --global user.name "Your GitHub Username"   # Ganti dengan nama GitHub Anda
+          git config --global user.email "aditya.dwic75@gmail.com"  # Ganti dengan email GitHub Anda
+          git config --global user.name "Aditya Dwi Cahyono"   # Ganti dengan nama GitHub Anda
           git add active.txt
           git commit -m "Keep the repo active: $(date)"
           git push origin main  # Pastikan branch yang digunakan sesuai dengan yang ada di repo Anda
