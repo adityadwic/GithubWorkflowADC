@@ -9,7 +9,7 @@ on:
     - cron: '28 13 * * *' # 20:28 WIB / 13:28 UTC
   push:
     branches:
-      - main  # Atur agar workflow berjalan saat ada push ke branch 'main'
+      - master  # Atur agar workflow berjalan saat ada push ke branch 'main'
 
 jobs:
   dummy-task:
@@ -41,4 +41,4 @@ jobs:
           git config --global user.name "Aditya Dwi Cahyono"   # Ganti dengan nama GitHub Anda
           git add active.txt
           git commit -m "Keep the repo active: $(date)"
-          git push origin main  # Pastikan branch yang digunakan sesuai dengan yang ada di repo Anda
+          git push origin master  # Pastikan branch yang digunakan sesuai dengan yang ada di repo Anda
