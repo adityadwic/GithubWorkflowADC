@@ -1,8 +1,11 @@
 name: Active and Scheduled Workflow
 
+permissions:
+  contents: read   # Memberikan akses baca ke konten repositori
+  pages: write     # Memberikan akses tulis ke halaman GitHub Pages (jika diperlukan)
+
 on:
   schedule:
-    # Schedule: 08:00 WIB, 12:00 WIB, 17:00 WIB
     - cron: '0 1 * * *' # 08:00 WIB
     - cron: '0 5 * * *' # 12:00 WIB
     - cron: '0 10 * * *' # 17:00 WIB
