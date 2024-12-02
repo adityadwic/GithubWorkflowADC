@@ -1,7 +1,7 @@
 name: Active and Scheduled Workflow
 
 permissions:
-  contents: write   # Memberikan akses baca ke konten repositori
+  contents: read   # Memberikan akses baca ke konten repositori
   pages: write     # Memberikan akses tulis ke halaman GitHub Pages (jika diperlukan)
 
 on:
@@ -15,33 +15,28 @@ on:
       - master  # Workflow berjalan saat ada push ke branch 'master'
 
 jobs:
-  dummy-task:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Keeping GitHub Active
-        run: |
-          echo "This is a dummy task to keep the repository active."
-          date # Menampilkan tanggal dan waktu saat ini
-
   scheduled-task:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Create or Modify a File to Trigger Push
+      - name: Pull latest changes from remote
         run: |
-          # Membuat atau memodifikasi file untuk memicu push
-          echo "This file is modified to keep the repo active." > active.txt
-          date > active.txt # Menambahkan tanggal dan waktu saat ini ke file
+          git pull origin master # Tarik perubahan terbaru dari repositori
+
+      - name: Create or Modify Multiple Files to Trigger Push
+        run: |
+          # Membuat atau memodifikasi beberapa file untuk memicu push
+          echo "File modified at $(date)" > active-file-$(date +%Y%m%d%H%M%S).txt
+          echo "Random content $(date)" > random-file-$(date +%Y%m%d%H%M%S).txt
+          echo "Additional changes made at $(date)" > another-file-$(date +%Y%m%d%H%M%S).txt
+          date > updated-time.txt
 
       - name: Commit and Push Changes
         run: |
           git config --global user.email "aditya.dwic75@gmail.com"  # Ganti dengan email GitHub Anda
           git config --global user.name "Aditya Dwi Cahyono"   # Ganti dengan nama GitHub Anda
-          git add active.txt
+          git add .
           git commit -m "Keep the repo active: $(date)"
           git push https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/adityadwic/GithubWorkflowADC.git master
