@@ -1,7 +1,7 @@
 name: Active and Scheduled Workflow
 
 permissions:
-  contents: read   # Memberikan akses baca ke konten repositori
+  contents: write   # Memberikan akses baca ke konten repositori
   pages: write     # Memberikan akses tulis ke halaman GitHub Pages (jika diperlukan)
 
 on:
