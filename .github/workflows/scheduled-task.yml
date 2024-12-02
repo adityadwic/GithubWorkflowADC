@@ -1,8 +1,8 @@
 name: Active and Scheduled Workflow
 
 permissions:
-  contents: write   # Memberikan akses baca ke konten repositori
-  pages: write     # Memberikan akses tulis ke halaman GitHub Pages (jika diperlukan)
+  contents: write   # Memberikan akses tulis ke konten repositori
+  pages: write      # Memberikan akses tulis ke halaman GitHub Pages (jika diperlukan)
 
 on:
   schedule:
@@ -25,18 +25,21 @@ jobs:
         run: |
           git pull origin master # Tarik perubahan terbaru dari repositori
 
-      - name: Create or Modify Multiple Files to Trigger Push
+      - name: Create or Modify Multiple Files Inside a Folder to Trigger Push
         run: |
-          # Membuat atau memodifikasi beberapa file untuk memicu push
-          echo "File modified at $(date)" > active-file-$(date +%Y%m%d%H%M%S).txt
-          echo "Random content $(date)" > random-file-$(date +%Y%m%d%H%M%S).txt
-          echo "Additional changes made at $(date)" > another-file-$(date +%Y%m%d%H%M%S).txt
-          date > updated-time.txt
+          # Membuat folder jika belum ada
+          mkdir -p active_files
+          
+          # Membuat atau memodifikasi beberapa file dalam folder 'active_files'
+          echo "File modified at $(date)" > active_files/active-file-$(date +%Y%m%d%H%M%S).txt
+          echo "Random content $(date)" > active_files/random-file-$(date +%Y%m%d%H%M%S).txt
+          echo "Additional changes made at $(date)" > active_files/another-file-$(date +%Y%m%d%H%M%S).txt
+          date > active_files/updated-time.txt
 
       - name: Commit and Push Changes
         run: |
           git config --global user.email "aditya.dwic75@gmail.com"  # Ganti dengan email GitHub Anda
           git config --global user.name "Aditya Dwi Cahyono"   # Ganti dengan nama GitHub Anda
-          git add .
+          git add active_files/*  # Menambahkan semua perubahan di dalam folder 'active_files'
           git commit -m "Keep the repo active: $(date)"
           git push https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/adityadwic/GithubWorkflowADC.git master
