@@ -9,7 +9,7 @@ on:
     - cron: '28 13 * * *' # 20:28 WIB / 13:28 UTC
   push:
     branches:
-      - master  # Atur agar workflow berjalan saat ada push ke branch 'main'
+      - master  # Workflow berjalan saat ada push ke branch 'master'
 
 jobs:
   dummy-task:
@@ -21,7 +21,7 @@ jobs:
       - name: Keeping GitHub Active
         run: |
           echo "This is a dummy task to keep the repository active."
-          date # Prints the current date and time
+          date # Menampilkan tanggal dan waktu saat ini
 
   scheduled-task:
     runs-on: ubuntu-latest
@@ -31,9 +31,9 @@ jobs:
 
       - name: Create or Modify a File to Trigger Push
         run: |
-          # Create or modify a file to trigger a push
+          # Membuat atau memodifikasi file untuk memicu push
           echo "This file is modified to keep the repo active." > active.txt
-          date > active.txt # Adds the current date and time to the file
+          date > active.txt # Menambahkan tanggal dan waktu saat ini ke file
 
       - name: Commit and Push Changes
         run: |
@@ -41,4 +41,4 @@ jobs:
           git config --global user.name "Aditya Dwi Cahyono"   # Ganti dengan nama GitHub Anda
           git add active.txt
           git commit -m "Keep the repo active: $(date)"
-          git push origin master  # Pastikan branch yang digunakan sesuai dengan yang ada di repo Anda
+          git push https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/adityadwic/GithubWorkflowADC.git master
